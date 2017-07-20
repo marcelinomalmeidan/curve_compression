@@ -1,7 +1,7 @@
 # curve_compression
 Compress points from a curve into keyframes
 
-#dependencies
+# dependencies
 - Beyond ROS, all you need is Eigen
 
 ```sudo apt-get install libeigen3-dev ```
