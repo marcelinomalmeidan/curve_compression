@@ -1,0 +1,9 @@
+#denseCurve: structure containing the set of points for compression
+#minPoints: minimum number of points in the output. Cannot be less than 2
+#compressionFactor: an integer indicating how much compression will be made. Can only be chosen in the range 1-6, where 1 is low compression, 6 is high compression. Typically chosen as 3
+
+nav_msgs/Path denseCurve
+std_msgs/Int16 minPoints
+std_msgs/Int16 compressionFactor
+---
+nav_msgs/Path compressedCurve
