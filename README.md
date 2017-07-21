@@ -1,5 +1,14 @@
 # curve_compression
-Compress points from a curve into keyframes
+Compress points from a curve into keyframes. The solution in this repo was based on:
+```
+@inproceedings{bulut2007key,
+  title={Key frame extraction from motion capture data by curve saliency},
+  author={Bulut, Eyuphan and Capin, Tolga},
+  booktitle={Computer animation and social agents},
+  pages={119},
+  year={2007}
+}
+```
 
 # dependencies
 - Beyond ROS, all you need is Eigen
