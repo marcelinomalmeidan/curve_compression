@@ -17,7 +17,7 @@ bool curveCompressionSvr2D(curve_compression::compressCurve::Request &req,
 
   //Declare initial variables
   int n_points = req.denseCurve.poses.size(); //Number of waypoints
-  std::vector<double> x, y, z;
+  std::vector<double> x, y, z, t;
   int minPoints = req.minPoints.data;
   int compressionFactor = req.compressionFactor.data;
   int compression;
@@ -43,6 +43,7 @@ bool curveCompressionSvr2D(curve_compression::compressCurve::Request &req,
     x.push_back(req.denseCurve.poses[i].pose.position.x);
     y.push_back(req.denseCurve.poses[i].pose.position.y);
     z.push_back(req.denseCurve.poses[i].pose.position.z);
+    t.push_back(req.denseCurve.poses[i].header.stamp.toSec());
   }
 
   //First delete colinear points
@@ -67,6 +68,7 @@ bool curveCompressionSvr2D(curve_compression::compressCurve::Request &req,
       x.erase(x.begin() + deleteIndex);
       y.erase(y.begin() + deleteIndex);
       z.erase(z.begin() + deleteIndex);
+      t.erase(t.begin() + deleteIndex);
       n_points = n_points - 1;
     }
     else{
@@ -106,6 +108,7 @@ bool curveCompressionSvr2D(curve_compression::compressCurve::Request &req,
       x.erase(x.begin() + deleteIndex);
       y.erase(y.begin() + deleteIndex);
       z.erase(z.begin() + deleteIndex);
+      t.erase(t.begin() + deleteIndex);
       n_points = n_points - 1;
     }
   }
@@ -117,7 +120,7 @@ bool curveCompressionSvr2D(curve_compression::compressCurve::Request &req,
     Pos.pose.position.x = x[i];
     Pos.pose.position.y = y[i];
     Pos.pose.position.z = z[i];
-    Pos.header.stamp = ros::Time::now();
+    Pos.header.stamp = ros::Time(t[i]);
 
     CompressedCurve.poses.push_back(Pos);
   }
