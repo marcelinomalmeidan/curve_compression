@@ -39,15 +39,19 @@ bool curveCompressionSvr2D(curve_compression::compressCurve::Request &req,
 
 
   //Populate xy matrix
+  x.resize(n_points);
+  y.resize(n_points);
+  z.resize(n_points);
+  t.resize(n_points);
   for (int i = 0; i < n_points; i++){
-    x.push_back(req.denseCurve.poses[i].pose.position.x);
-    y.push_back(req.denseCurve.poses[i].pose.position.y);
-    z.push_back(req.denseCurve.poses[i].pose.position.z);
-    t.push_back(req.denseCurve.poses[i].header.stamp.toSec());
+    x[i] = req.denseCurve.poses[i].pose.position.x;
+    y[i] = req.denseCurve.poses[i].pose.position.y;
+    z[i] = req.denseCurve.poses[i].pose.position.z;
+    t[i] = req.denseCurve.poses[i].header.stamp.toSec();
   }
 
   //First delete colinear points
-  double epsilon = 0.0001, dist;
+  double epsilon = 0.0025, dist;
   int deleteIndex;
   Eigen::Vector3d p1, p2, p;
   Line_3d line;
@@ -116,13 +120,14 @@ bool curveCompressionSvr2D(curve_compression::compressCurve::Request &req,
   //Return compressed values
   nav_msgs::Path CompressedCurve;
   geometry_msgs::PoseStamped Pos;
+  CompressedCurve.poses.resize(n_points);
   for (int i = 0; i < n_points; i++){
     Pos.pose.position.x = x[i];
     Pos.pose.position.y = y[i];
     Pos.pose.position.z = z[i];
     Pos.header.stamp = ros::Time(t[i]);
 
-    CompressedCurve.poses.push_back(Pos);
+    CompressedCurve.poses[i] = Pos;
   }
 
   res.compressedCurve = CompressedCurve;
