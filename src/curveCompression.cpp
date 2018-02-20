@@ -55,7 +55,7 @@ bool curveCompressionSvr2D(curve_compression::compressCurve::Request &req,
   int deleteIndex;
   Eigen::Vector3d p1, p2, p;
   Line_3d line;
-  while(true){
+  while(n_points > minPoints){
     double deleteIndex = -1;
     for(int i = 1; i < n_points-1; i++){
       p1 << x[i-1], y[i-1], z[i-1];
