@@ -19,6 +19,7 @@ find_package(Eigen REQUIRED)
 
 add_service_files( FILES
   compressCurve.srv
+  compressCurveUntil.srv
 )
 
 generate_messages( DEPENDENCIES

@@ -1,0 +1,7 @@
+#denseCurve: structure containing the set of points for compression
+#n_compressed_points: exact number of points in the output. 
+
+nav_msgs/Path denseCurve
+std_msgs/Int16 n_compressed_points
+---
+nav_msgs/Path compressedCurve
